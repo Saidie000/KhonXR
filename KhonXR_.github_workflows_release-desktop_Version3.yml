@@ -1,0 +1,109 @@
+name: Build Desktop Installers (Windows & Linux)
+
+on:
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: 'Release tag (e.g. v1.0.0)'
+        required: true
+        default: 'v1.0.0'
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: write
+
+jobs:
+  build-windows:
+    name: Build Windows installer (NSIS)
+    runs-on: windows-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+
+      - name: Install deps
+        run: npm ci
+
+      - name: Fetch libs and build khon
+        run: |
+          node fetch-libs.js || echo "fetch-libs may be empty; ensure libs.json is configured"
+          node build-khon.js
+
+      - name: Build Windows installer
+        run: npm run desktop:build:win
+
+      - name: Upload artifact
+        uses: softprops/artifact@v1
+        with:
+          name: khon-desktop-windows
+          path: dist/*.exe
+
+  build-linux:
+    name: Build Linux AppImage and deb
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+
+      - name: Install deps
+        run: npm ci
+
+      - name: Fetch libs and build khon
+        run: |
+          node fetch-libs.js || echo "fetch-libs may be empty; ensure libs.json is configured"
+          node build-khon.js
+
+      - name: Build Linux installers
+        run: npm run desktop:build:linux
+
+      - name: Upload artifact
+        uses: softprops/artifact@v1
+        with:
+          name: khon-desktop-linux
+          path: dist/*.AppImage
+
+  release:
+    name: Create GitHub Release with installers
+    needs: [build-windows, build-linux]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Download Windows artifact
+        uses: softprops/artifact@v1
+        with:
+          name: khon-desktop-windows
+          path: ./artifacts/windows
+
+      - name: Download Linux artifact
+        uses: softprops/artifact@v1
+        with:
+          name: khon-desktop-linux
+          path: ./artifacts/linux
+
+      - name: Create release
+        uses: softprops/action-gh-release@v1
+        with:
+          tag_name: ${{ github.event.inputs.tag || github.ref_name }}
+          name: "Khon Graphics ${GITHUB_REF}"
+          files: |
+            artifacts/windows/*.exe
+            artifacts/linux/*.AppImage
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

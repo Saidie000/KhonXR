@@ -1,0 +1,85 @@
+{
+  "name": "khonxr",
+  "version": "1.0.0",
+  "description": "Khon Graphics / KhonXR engine — single-file .khon runtime and desktop app",
+  "main": "api/khonxr.js",
+  "scripts": {
+    "build": "node build-khon.js",
+    "fetch-libs": "node fetch-libs.js",
+    "sha256": "node compute-sha256s.js",
+    "start": "node examples/server.js",
+    "desktop:dev": "electron .",
+    "desktop:build": "electron-builder --publish=never",
+    "desktop:build:win": "electron-builder --win nsis --publish=never",
+    "desktop:build:linux": "electron-builder --linux AppImage --publish=never"
+  },
+  "keywords": ["xr","graphics","khon","khonxr","webgl","electron"],
+  "author": "KhonXR Contributors",
+  "license": "MIT",
+  "dependencies": {
+    "electron-updater": "^5.4.6",
+    "electron-log": "^4.4.6"
+  },
+  "devDependencies": {
+    "electron": "^26.0.0",
+    "electron-builder": "^24.6.0"
+  },
+  "build": {
+    "appId": "com.saidie000.khonxr",
+    "productName": "Khon Graphics",
+    "files": [
+      "dist/**/*",
+      "assets/**/*",
+      "examples/**/*",
+      "api/**/*",
+      "core/**/*",
+      "README.html",
+      "khonxr.py",
+      "electron/**/*",
+      "package.json"
+    ],
+    "extraResources": [
+      {
+        "from": "dist/",
+        "to": "dist/",
+        "filter": ["**/*"]
+      }
+    ],
+    "fileAssociations": [
+      {
+        "ext": "khon",
+        "name": "Khon Runtime Bundle",
+        "role": "Viewer"
+      }
+    ],
+    "directories": {
+      "buildResources": "build"
+    },
+    "nsis": {
+      "oneClick": false,
+      "perMachine": false,
+      "allowElevation": true,
+      "allowToChangeInstallationDirectory": true
+    },
+    "win": {
+      "target": [
+        "nsis"
+      ],
+      "icon": "assets/khon.ico"
+    },
+    "linux": {
+      "target": [
+        "AppImage",
+        "deb"
+      ],
+      "icon": "assets"
+    },
+    "publish": [
+      {
+        "provider": "github",
+        "owner": "Saidie000",
+        "repo": "KhonXR"
+      }
+    ]
+  }
+}

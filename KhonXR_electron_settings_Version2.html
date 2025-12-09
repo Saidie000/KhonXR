@@ -1,0 +1,59 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>Khon Graphics Settings</title>
+  <style>
+    body{font-family:system-ui,Segoe UI,Roboto,Arial;margin:16px;color:#222}
+    h2{margin:0 0 8px}
+    label{display:block;margin-top:8px}
+    input[type=text], select{width:100%; padding:8px; border:1px solid #ccc; border-radius:6px}
+    .row{display:flex; gap:8px; margin-top:12px}
+    button{padding:8px 12px; border-radius:8px}
+  </style>
+</head>
+<body>
+  <h2>Khon Graphics Settings</h2>
+  <div>
+    <label>Auto-update</label>
+    <select id="autoUpdate">
+      <option value="enable">Enable</option>
+      <option value="disable">Disable</option>
+    </select>
+
+    <label>Update channel</label>
+    <select id="channel">
+      <option value="latest">latest</option>
+      <option value="beta">beta</option>
+    </select>
+
+    <label>Default .khon path</label>
+    <input id="khonPath" type="text" placeholder="Path to dist/khonxr.khon or custom .khon"/>
+
+    <div class="row">
+      <button id="btnPick">Pick file...</button>
+      <button id="btnSave">Save</button>
+    </div>
+    <div style="margin-top:12px;">
+      <small>Note: Installer-time file association is handled by the installer. Auto-update requires published releases configured in package.json 'publish' section and proper signing on Windows/macOS.</small>
+    </div>
+  </div>
+  <script>
+    const btnPick = document.getElementById('btnPick');
+    const btnSave = document.getElementById('btnSave');
+    btnPick.addEventListener('click', async () => {
+      const res = await window.khonDesktop.pickFile();
+      if (!res.canceled) document.getElementById('khonPath').value = res.path;
+    });
+    btnSave.addEventListener('click', () => {
+      // In a full app, settings would be persisted via IPC to main process or app config.
+      alert('Settings saved (demo).');
+    });
+    // Pre-fill default
+    (async () => {
+      const p = await window.khonDesktop.getDefaultKhonPath();
+      document.getElementById('khonPath').value = p;
+    })();
+  </script>
+</body>
+</html>

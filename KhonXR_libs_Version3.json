@@ -1,0 +1,61 @@
+[
+  {
+    "name": "tfjs",
+    "type": "npm",
+    "source": "@tensorflow/tfjs@4.12.0",
+    "pkgPath": "package/dist/tf.min.js",
+    "dest": "core/tfjs.js",
+    "sha256": ""
+  },
+  {
+    "name": "coco-ssd",
+    "type": "npm",
+    "source": "@tensorflow-models/coco-ssd@2.2.2",
+    "pkgPath": "package/dist/coco-ssd.min.js",
+    "dest": "core/coco-ssd.js",
+    "sha256": ""
+  },
+  {
+    "name": "midas",
+    "type": "github-release",
+    "url": "https://github.com/isl-org/MiDaS/releases/download/v3.1/midas_js_bundle.js",
+    "dest": "core/midas.js",
+    "sha256": ""
+  },
+  {
+    "name": "mediapipe-hands",
+    "type": "url",
+    "url": "https://cdn.jsdelivr.net/npm/@mediapipe/hands@0.4/hands.js",
+    "dest": "core/mediapipe-hands.js",
+    "sha256": ""
+  },
+  {
+    "name": "mediapipe-face",
+    "type": "url",
+    "url": "https://cdn.jsdelivr.net/npm/@mediapipe/face_mesh@0.4/face_mesh.js",
+    "dest": "core/mediapipe-face.js",
+    "sha256": ""
+  },
+  {
+    "name": "mediapipe-pose",
+    "type": "url",
+    "url": "https://cdn.jsdelivr.net/npm/@mediapipe/pose@0.4/pose.js",
+    "dest": "core/mediapipe-pose.js",
+    "sha256": ""
+  },
+  {
+    "name": "opencv",
+    "type": "url",
+    "url": "https://docs.opencv.org/4.x/opencv.js",
+    "dest": "core/opencv.js",
+    "sha256": ""
+  },
+  {
+    "name": "tfjs-backend-wasm",
+    "type": "npm",
+    "source": "@tensorflow/tfjs-backend-wasm@4.12.0",
+    "pkgPath": "package/dist/tf-backend-wasm.js",
+    "dest": "core/tfjs-backend-wasm.js",
+    "sha256": ""
+  }
+]
