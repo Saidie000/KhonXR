@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Khon Graphics Engine</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        h1, h2, h3 {
+            color: #000;
+        }
+        code {
+            background-color: #f4f4f4;
+            padding: 2px 4px;
+            border-radius: 4px;
+        }
+        pre {
+            background-color: #f4f4f4;
+            padding: 10px;
+            border-radius: 4px;
+            overflow-x: auto;
+        }
+        .logo-container {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        .logo-container h1 {
+            margin: 0;
+        }
+        .wavy-underline {
+            text-decoration: underline wavy red;
+        }
+        .comparison {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 40px;
+        }
+        .comparison div {
+            width: 45%;
+        }
+        .comparison h3 {
+            display: flex;
+            align-items: center;
+        }
+        .comparison svg {
+            margin-right: 5px;
+        }
+        .khonxr-logo {
+            text-align: center;
+            margin-top: 40px;
+            margin-bottom: 20px;
+        }
+        hr {
+            border: 0;
+            border-top: 1px solid #ccc;
+            margin: 20px 0;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="logo-container">
+        <svg version="1.0" xmlns="http://www.w3.org/2000/svg" width="84.000000pt" height="104.000000pt" viewBox="0 0 84.000000 104.000000" preserveAspectRatio="xMidYMid meet" style="width: 50px; height: auto; margin-right: 10px;">
+            <metadata>Created by potrace 1.10, written by Peter Selinger 2001-2011</metadata>
+            <g transform="translate(0.000000,104.000000) scale(0.100000,-0.100000)" fill="#800080" stroke="none">
+                <path d="M99 896 c6 -8 24 -16 39 -19 15 -3 52 -12 82 -22 30 -9 80 -23 110 -31 30 -8 78 -30 105 -48 199 -133 208 -138 216 -124 5 7 30 49 55 93 26 44 60 99 76 123 l29 42 -362 0 c-308 0 -360 -2 -350 -14z"/>
+                <path d="M349 713 c-45 -41 -45 -40 -14 -163 20 -80 29 -120 45 -190 7 -30 16 -59 20 -65 5 -5 13 -32 18 -60 15 -78 53 -219 62 -228 4 -5 13 13 20 40 6 26 15 64 20 83 5 19 16 64 24 100 8 36 22 94 30 130 9 36 21 92 27 125 6 33 15 64 20 69 26 28 7 52 -100 124 -59 39 -113 72 -120 72 -6 0 -29 -17 -52 -37z"/>
+            </g>
+        </svg>
+        <h1>Khon | <span class="wavy-underline">.khon</span> Khon Graphics Engine</h1>
+    </div>
+
+    <p>Khon Graphics is NCOM's dedicated graphics protocol that serves as a "partially local" graphics engine that lives partly on the device as well as on the cloud. It acts as a WebRTC handler where <span class="wavy-underline">khon</span> handles OS-level renderer that predates modern cloud GPU rendering.</p>
+
+    <p>For non-intensive graphics such as UX, Khon native engine lives on the built-in graphics CPU. but, for more graphic intensive graphics, <span class="wavy-underline">khon</span> uses a graphics cloud pipeline though containers called manifests or .mf. A manifest may not contain all real assets but - it contains references. meaning inside the .mf you'd likely see structures like:</p>
+
+    <pre><code>| ASSET: KHON.RASTER.LIGHTING
+| SRC: https://plx-khon-relay/core/light/index.hdr</code></pre>
+
+    <div class="comparison">
+        <div>
+            <h3>
+                <svg version="1.0" xmlns="http://www.w3.org/2000/svg" width="20px" height="20px" viewBox="0 0 84.000000 104.000000" preserveAspectRatio="xMidYMid meet">
+                    <g transform="translate(0.000000,104.000000) scale(0.100000,-0.100000)" fill="#800080" stroke="none">
+                        <path d="M99 896 c6 -8 24 -16 39 -19 15 -3 52 -12 82 -22 30 -9 80 -23 110 -31 30 -8 78 -30 105 -48 199 -133 208 -138 216 -124 5 7 30 49 55 93 26 44 60 99 76 123 l29 42 -362 0 c-308 0 -360 -2 -350 -14z"/>
+                        <path d="M349 713 c-45 -41 -45 -40 -14 -163 20 -80 29 -120 45 -190 7 -30 16 -59 20 -65 5 -5 13 -32 18 -60 15 -78 53 -219 62 -228 4 -5 13 13 20 40 6 26 15 64 20 83 5 19 16 64 24 100 8 36 22 94 30 130 9 36 21 92 27 125 6 33 15 64 20 69 26 28 7 52 -100 124 -59 39 -113 72 -120 72 -6 0 -29 -17 -52 -37z"/>
+                    </g>
+                </svg>
+                Small stuff = local rendering
+            </h3>
+            <p>UI, windows, overlays, animated icons<br>(aka what you see with no heavy GPU)</p>
+        </div>
+        <div>
+            <h3>
+                <svg version="1.0" xmlns="http://www.w3.org/2000/svg" width="20px" height="20px" viewBox="0 0 84.000000 104.000000" preserveAspectRatio="xMidYMid meet">
+                    <g transform="translate(0.000000,104.000000) scale(0.100000,-0.100000)" fill="#800080" stroke="none">
+                        <path d="M99 896 c6 -8 24 -16 39 -19 15 -3 52 -12 82 -22 30 -9 80 -23 110 -31 30 -8 78 -30 105 -48 199 -133 208 -138 216 -124 5 7 30 49 55 93 26 44 60 99 76 123 l29 42 -362 0 c-308 0 -360 -2 -350 -14z"/>
+                        <path d="M349 713 c-45 -41 -45 -40 -14 -163 20 -80 29 -120 45 -190 7 -30 16 -59 20 -65 5 -5 13 -32 18 -60 15 -78 53 -219 62 -228 4 -5 13 13 20 40 6 26 15 64 20 83 5 19 16 64 24 100 8 36 22 94 30 130 9 36 21 92 27 125 6 33 15 64 20 69 26 28 7 52 -100 124 -59 39 -113 72 -120 72 -6 0 -29 -17 -52 -37z"/>
+                    </g>
+                </svg>
+                Heavy stuff = streamed rendering
+            </h3>
+            <p>lighting<br>high-resolution textures<br>complex geometry<br>ray-blur, bloom, ambient maps, etc.</p>
+        </div>
+    </div>
+
+    <div class="khonxr-logo">
+        <svg version="1.0" xmlns="http://www.w3.org/2000/svg" width="450.000000pt" height="233.000000pt" viewBox="0 0 450.000000 233.000000" preserveAspectRatio="xMidYMid meet" style="width: 300px; height: auto;">
+            <metadata>Created by potrace 1.10, written by Peter Selinger 2001-2011</metadata>
+            <g transform="translate(0.000000,233.000000) scale(0.100000,-0.100000)" fill="#000000" stroke="none">
+                <path d="M2040 2160 c-41 -3 -91 -14 -109 -24 -19 -10 -211 -195 -427 -410 -306 -305 -397 -402 -415 -441 -23 -48 -24 -62 -27 -291 l-3 -242 27 -21 c24 -19 39 -21 164 -21 219 0 159 -43 719 514 382 380 488 491 507 531 22 46 24 63 24 203 0 85 -5 162 -10 172 -6 11 -27 24 -48 30 -40 11 -279 11 -402 0z"/>
+                <path d="M3045 2154 c-46 -14 -86 -52 -506 -472 -303 -303 -465 -472 -480 -502 -22 -42 -24 -58 -27 -232 l-4 -187 26 -26 25 -25 229 0 c225 0 229 0 280 26 74 37 743 718 787 801 l30 57 0 267 c0 244 -2 270 -18 286 -25 25 -267 30 -342 7z"/>
+            </g>
+        </svg>
+    </div>
+
+    <p>NCOM KhonXR is NCOM's graphics API featuring OpenXR, SLAM, TFJS, MiDaS, Coco-SSD, MediaPipe, OpenCV, WebGL, and PLX code handler for .khon shaders—all in a single free build script. See README for full details and usage.</p>
+
+    <h1 id="ncom-khon-graphics-docs--instructions">NCOM Khon Graphics Docs & Instructions</h1>
+
+    <p>Comprehensive documentation for <strong>Khon Graphics</strong>, NCOM’s full-stack WebXR/WebGL graphics engine with OpenXR support, immersive UI, and advanced tracking systems.</p>
+
+    <hr>
+
+    <h2 id="table-of-contents">Table of Contents</h2>
+    <ol>
+        <li><a href="#overview">Overview</a></li>
+        <li><a href="#features">Features</a></li>
+        <li><a href="#system-architecture">System Architecture</a></li>
+        <li><a href="#installation">Installation</a></li>
+        <li><a href="#core-modules">Core Modules</a></li>
+        <li><a href="#tracking-systems">Tracking Systems</a></li>
+        <li><a href="#rendering--shaders">Rendering & Shaders</a></li>
+        <li><a href="#webxropenxr-integration">WebXR/OpenXR Integration</a></li>
+        <li><a href="#scene-examples">Scene Examples</a></li>
+        <li><a href="#performance-optimization">Performance Optimization</a></li>
+        <li><a href="#troubleshooting">Troubleshooting</a></li>
+        <li><a href="#license">License</a></li>
+    </ol>
+
+    <hr>
+
+    <h2 id="overview">Overview</h2>
+    <p>Khon Graphics is designed for <strong>immersive applications</strong> in WebXR/VR/AR with:</p>
+    <ul>
+        <li><strong>Full OpenXR support</strong> for desktop VR and headset integration</li>
+        <li><strong>Real-time tracking</strong>: hand, face, body, eye</li>
+        <li><strong>Soft-glass UI overlay</strong> for physical-surface-aligned HUDs</li>
+        <li><strong>Integrated RANSAC plane detection</strong> for spatial interaction</li>
+        <li><strong>Advanced rendering pipeline</strong> with WebGL2/WebGPU, PBR materials, and glass shaders</li>
+    </ul>
+    <p>It powers <strong>NCOM FocalOS</strong>, enabling VR, AR, and mixed-reality environments in a browser or web app.</p>
+
+    <hr>
+
+    <h2 id="features">Features</h2>
+    <ul>
+        <li><strong>Soft-Glass UI:</strong> Floating HUDs that snap to surfaces with realistic transparency and refraction</li>
+        <li><strong>Full-body tracking:</strong> Hand, eye, and facial tracking compatible with VR controllers and webcams</li>
+        <li><strong>Physics and Occlusion:</strong> Rigid body simulation, depth-aware occlusion of objects in scenes</li>
+        <li><strong>WebXR/OpenXR Ready:</strong> Full headset support, including controller input and room-scale tracking</li>
+        <li><strong>Asset Manager:</strong> Efficient streaming/loading of 3D models, animations, and textures</li>
+        <li><strong>Shader Suite:</strong> Glass, PBR, holographic, and customizable GLSL shaders</li>
+    </ul>
+
+    <hr>
+
+    <h2 id="system-architecture">System Architecture</h2>
+    <p>Khon Graphics consists of layered modules:</p>
+    <ol>
+        <li><strong>Core Engine:</strong> Initializes canvas, manages render loop, handles WebGL/WebGPU context</li>
+        <li><strong>Renderer Module:</strong> Manages shaders, lighting, shadows, reflections, and soft-glass effects</li>
+        <li><strong>Tracking Module:</strong> Hand, face, eye, and full-body motion capture; integrates MediaPipe, TensorFlow.js, or SteamVR trackers</li>
+        <li><strong>UI Module:</strong> Soft-glass overlays, menus, HUD elements, and interactive buttons</li>
+        <li><strong>Physics Module:</strong> Optional rigid body, collision detection, occlusion management</li>
+        <li><strong>Asset Manager:</strong> Handles model/textures/animations, caching, LOD, and instancing</li>
+        <li><strong>WebXR/OpenXR Adapter:</strong> Connects Khon Graphics engine to OpenXR API for VR/AR support</li>
+    </ol>
+    <p>Each module can be <strong>enabled/disabled independently</strong>, making the engine modular and lightweight.</p>
+
+    <hr>
+
+    <h2 id="installation">Installation</h2>
+    <h3>Browser (Standalone HTML)</h3>
+    <ol>
+        <li>Clone or download the repository:</li>
+    </ol>
+    <pre><code class="language-bash">git clone https://github.com/NCOM/khon-graphics.git</code></pre>
+    <ol start="2">
+        <li>Include in your HTML:</li>
+    </ol>
+    <pre><code class="language-html">&lt;link rel=&quot;stylesheet&quot; href=&quot;khon-graphics.css&quot;&gt;
+&lt;script src=&quot;khon-graphics.bundle.js&quot;&gt;&lt;/script&gt;</code></pre>
+    <ol start="3">
+        <li>Initialize:</li>
+    </ol>
+    <pre><code class="language-javascript">const khon = new KhonGraphics({
+  canvas: document.getElementById('renderCanvas'),
+  enableVR: true,
+  enableSoftGlass: true
+});
+khon.start();</code></pre>
+    <h3>Node/NPM Environment</h3>
+    <pre><code class="language-bash">npm install khon-graphics</code></pre>
+    <p>Then in your JS/TS:</p>
+    <pre><code class="language-javascript">import { KhonGraphics } from 'khon-graphics';
+
+const engine = new KhonGraphics({ canvas: document.getElementById('renderCanvas') });
+engine.start();</code></pre>
+
+    <hr>
+
+    <h2 id="core-modules">Core Modules</h2>
+    <h3>Renderer</h3>
+    <ul>
+        <li>Supports WebGL2 and WebGPU</li>
+        <li>Handles PBR, glass, and custom shaders</li>
+        <li>Dynamic lighting and reflections</li>
+    </ul>
+    <h3>UI Layer</h3>
+    <ul>
+        <li>Soft-glass HUD</li>
+        <li>Snap-to-surface logic</li>
+        <li>Fully interactive buttons and overlays</li>
+    </ul>
+    <h3>Tracking</h3>
+    <ul>
+        <li>Hands: OpenXR or MediaPipe</li>
+        <li>Face: TensorFlow.js FaceMesh</li>
+        <li>Eyes: Iris tracking</li>
+        <li>Body: Pose detection via TensorFlow.js or SteamVR</li>
+    </ul>
+    <h3>Physics</h3>
+    <ul>
+        <li>Optional Rigid Body and collision detection</li>
+        <li>Occlusion-aware rendering</li>
+    </ul>
+    <h3>Asset Manager</h3>
+    <ul>
+        <li>Load .glb, .gltf, .obj models</li>
+        <li>Manage animations, textures, and materials</li>
+        <li>Instancing and LOD support</li>
+    </ul>
+
+    <hr>
+
+    <h2 id="tracking-systems">Tracking Systems</h2>
+    <p><em>Detailed in Core Modules above.</em></p>
+
+    <hr>
+
+    <h2 id="rendering--shaders">Rendering & Shaders</h2>
+    <ul>
+        <li>Glass Shader: Soft transparency, refraction, HDR reflections</li>
+        <li>PBR Shader: Metallic/roughness-based realistic materials</li>
+        <li>Holographic Shader: Neon outlines, emissive glow</li>
+        <li>Custom Shader Support: Load your own GLSL scripts</li>
+    </ul>
+    <pre><code class="language-javascript">const glassMaterial = engine.createMaterial('glass');
+mesh.setMaterial(glassMaterial);</code></pre>
+
+    <hr>
+
+    <h2 id="webxropenxr-integration">WebXR/OpenXR Integration</h2>
+    <p>Khon Graphics connects directly to OpenXR:</p>
+    <pre><code class="language-javascript">khon.xr.startSession({
+  referenceSpace: 'local-floor',
+  optionalFeatures: ['hand-tracking', 'layers', 'plane-detection']
+});</code></pre>
+    <ul>
+        <li>Controllers: Automatically mapped to engine input</li>
+        <li>Hands: Gesture recognition for interaction</li>
+        <li>Room-scale VR: Automatic scaling and collision boundaries</li>
+        <li>Planes: RANSAC plane detection for spatial awareness</li>
+    </ul>
+
+    <hr>
+
+    <h2 id="scene-examples">Scene Examples</h2>
+    <h3>Simple Cube in VR</h3>
+    <pre><code class="language-javascript">const scene = khon.createScene();
+
+const cube = scene.createMesh('cube', { width: 1, height: 1, depth: 1 });
+cube.setMaterial(engine.createMaterial('glass'));
+cube.position.set(0, 1, 0);
+
+scene.add(cube);
+khon.renderScene(scene);</code></pre>
+    <h3>Soft-Glass HUD Panel</h3>
+    <pre><code class="language-javascript">const hud = khon.ui.createPanel({ width: 0.5, height: 0.3, glass: true });
+hud.position.set(0, 1.5, -1);
+khon.scene.add(hud);</code></pre>
+
+    <hr>
+
+    <h2 id="performance-optimization">Performance Optimization</h2>
+    <ul>
+        <li>Use instancing for repeated objects</li>
+        <li>Limit high-res textures in VR</li>
+        <li>Batch draw calls</li>
+        <li>Enable lazy loading of models and textures</li>
+    </ul>
+
+    <hr>
+
+    <h2 id="troubleshooting">Troubleshooting</h2>
+    <ul>
+        <li>Canvas blank: Check &lt;canvas&gt; element and context</li>
+        <li>VR session fails: Confirm browser supports WebXR/OpenXR</li>
+        <li>Shader glitches: Verify WebGL2/WebGPU compatibility</li>
+    </ul>
+    <p>Enable debug mode for detailed logs:</p>
+    <pre><code class="language-javascript">khon.enableDebugMode(true);</code></pre>
+
+    <hr>
+
+    <h2 id="license">License</h2>
+    <p>Khon Graphics is MIT licensed. Free to use, modify, and redistribute.</p>
+
+</body>
+</html>
